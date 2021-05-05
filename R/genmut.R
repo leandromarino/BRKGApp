@@ -1,8 +1,8 @@
-#' genpop
+#' genmut
 #' 
-#' @title Population Generation
+#' @title Mutant Population Generation
 #' 
-#' @description This generate the chromossome population
+#' @description This generate the mutant population
 #' 
 #' @references 
 #' Gonçalves, J.F., Resende, M.G.C. Biased random-key genetic
@@ -28,38 +28,36 @@
 #' genpop_Rcpp(t_brkga)
 #' genpop(t_brkga)
 #' 
-#' genpop(t_brkga)
-#' genpop_R(t_brkga)
-#' genpop_Rcpp(t_brkga)
+#' genmut(t_brkga)
+#' genmut_R(t_brkga)
+#' genmut_Rcpp(t_brkga)
 #' 
 #' 
 #' 
 
 
 
-# Generate a random population ----
-genpop <- function(object, ..)
+genmut <- function(object, ..)
 {
   if(object@Rcpp){
-    population <- genpop_Rcpp(object)    
+    genmut_Rcpp(object)    
   } 
   else{
-    population <- genpop_R(object)
+    genmut_R(object)
   }
-  
-  dimnames(population) <- list(c(1:nrow(population)),
-                               paste0('RK', 1:ncol(population)))
-  
-  population
+    
 }
 
-genpop_R <- function(object)
+
+
+
+genmut_R <- function(object)
 {
   nvars <- object@p
-  population <- matrix(as.double(NA), nrow = object@popSize, ncol = object@p)
+  population <- matrix(as.double(NA), nrow = object@nmutant, ncol = object@p)
   for(j in 1:object@p)
   {
-    population[,j] <- runif(object@popSize)
+    population[,j] <- runif(object@nmutant)
     
   }
   return(population)

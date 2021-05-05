@@ -6,11 +6,6 @@
 
 using namespace Rcpp;
 
-#ifdef RCPP_USE_GLOBAL_ROSTREAM
-Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
-Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
-#endif
-
 // genpop_Rcpp
 NumericMatrix genpop_Rcpp(RObject object);
 RcppExport SEXP _BRKGApp_genpop_Rcpp(SEXP objectSEXP) {
@@ -22,9 +17,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// genmut_Rcpp
+NumericMatrix genmut_Rcpp(RObject object);
+RcppExport SEXP _BRKGApp_genmut_Rcpp(SEXP objectSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RObject >::type object(objectSEXP);
+    rcpp_result_gen = Rcpp::wrap(genmut_Rcpp(object));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_BRKGApp_genpop_Rcpp", (DL_FUNC) &_BRKGApp_genpop_Rcpp, 1},
+    {"_BRKGApp_genmut_Rcpp", (DL_FUNC) &_BRKGApp_genmut_Rcpp, 1},
     {NULL, NULL, 0}
 };
 
