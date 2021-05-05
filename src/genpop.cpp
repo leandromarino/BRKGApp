@@ -30,3 +30,12 @@ NumericMatrix genpop_Rcpp(RObject object)
 
   return pop;
 }
+
+
+
+/***R
+# t_brkga <- BRKGApp::brkga(iris[, -5], Rcpp = TRUE)
+# #genpop_R(t_brkga)
+# genpop_Rcpp(t_brkga)
+# #genpop(t_brkga)
+*/
