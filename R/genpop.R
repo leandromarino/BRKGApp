@@ -2,10 +2,13 @@
 # Generate a random population ----
 genpop <- function(object, ...)
 {
-  if(brkgaControl("useRcpp"))
-    genpop_Rcpp(object)
-  else
+  if(object@Rcpp){
+    genpop_Rcpp(object)    
+  } 
+  else{
     genpop_R(object)
+  }
+    
 }
 
 genpop_R <- function(object)

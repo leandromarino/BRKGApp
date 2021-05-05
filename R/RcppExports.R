@@ -5,19 +5,3 @@ genpop_Rcpp <- function(object) {
     .Call(`_BRKGApp_genpop_Rcpp`, object)
 }
 
-rcpparma_hello_world <- function() {
-    .Call(`_BRKGApp_rcpparma_hello_world`)
-}
-
-rcpparma_outerproduct <- function(x) {
-    .Call(`_BRKGApp_rcpparma_outerproduct`, x)
-}
-
-rcpparma_innerproduct <- function(x) {
-    .Call(`_BRKGApp_rcpparma_innerproduct`, x)
-}
-
-rcpparma_bothproducts <- function(x) {
-    .Call(`_BRKGApp_rcpparma_bothproducts`, x)
-}
-
