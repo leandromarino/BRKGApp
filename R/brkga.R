@@ -67,12 +67,51 @@ setClass(Class = "brkga",
 
 
 
-brkga <- function(data, decoder, 
+brkga <- function(data, 
+                  decoder, decoder_par,
+                  fitfun, fitfun_par,
                   popSize = 500, 
                   Rcpp = FALSE, 
                   pelite = 0.2, pmutation = 0.1, pcrossover = 0.7){
 
   call <- match.call()
+  
+  
+  args <- as.list(match.call(expand.dots=FALSE))
+  args
+  
+  # retrieving the names of arguments which
+  #  matches with names of parameter of decoder function
+  param <- decoder_par
+  aux <- lapply(param, function(x){
+    sum(names(args) == x) == 1
+  }) %>% 
+    unlist() %>% 
+    which() %>% 
+    names()
+  for(nam in aux){
+    param[[nam]] <- get(param[[nam]])
+  }
+  decoder_par <- param 
+  rm(param)
+  
+  
+  
+  # retrieving the names of arguments which
+  #  matches with names of parameter of fitness function
+  param <- fitfun_par
+  aux <- lapply(param, function(x){
+    sum(names(args) == x) == 1
+  }) %>% 
+    unlist() %>% 
+    which() %>% 
+    names()
+  for(nam in aux){
+    param[[nam]] <- get(param[[nam]])
+  }
+  fitfun_par <- param 
+  rm(param)
+  
   
   ## defining general variables 
   # divide in elite and non-elite  
