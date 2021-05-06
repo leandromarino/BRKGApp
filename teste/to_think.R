@@ -145,3 +145,7 @@ temp <- tmpfun(leandro = 1, decoder = myfun, 'b',
 
 
 do.call(temp$decoder, temp[formalArgs(temp$decoder)])
+
+
+myfun(a = 1, b = 5, par1 = 10:20)
+
