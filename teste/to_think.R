@@ -101,11 +101,47 @@ e <- quote(`foo bar`+1)
 deparse(e)
 deparse(e, control = "all") # wraps it w/ quote( . )
 
-nl <- function(...) {
+
+
+myfun <- function(par1, a, b){
+  a*par1 + b
+} 
+
+nl <- function(x = 1, ...) {
   dots <- pryr::named_dots(...)
   lapply(dots, eval, parent.frame())
 }
 
+temp <- nl(1, myfun, 'b', data = iris, a = 1, b = 5, par1 = 10:20)
 
-eval(nl(1, myfun, 'b', data = iris, a = 1, b = 5)$myfun)e
+temp
 
+formalArgs(temp$myfun)
+
+do.call(temp$myfun, temp[formalArgs(temp$myfun)])
+
+myfun(a = 1, b = 5, par1 = 10:20)
+
+
+
+
+
+library(magrittr)
+eval(temp$myfun)
+temp$myfun %>% str()
+
+
+
+tmpfun <- function(leandro, decoder,...) {
+  args <- as.list(match.call())
+  lapply(args, eval, parent.frame())
+}
+
+
+temp <- tmpfun(leandro = 1, decoder = myfun, 'b',
+               data = iris[1:5,],
+               a = 1, b = 5, 
+               par1 = 10:20)
+
+
+do.call(temp$decoder, temp[formalArgs(temp$decoder)])
